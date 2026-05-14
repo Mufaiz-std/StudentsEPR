@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content-section" style="background: white; padding: 20px; border-radius: 12px; max-width: 600px; margin: auto;">
+    <h2>My Profile</h2>
+    <form action="{% url 'profile_view' %}" method="POST" style="margin-top: 15px;">
+        {% csrf_token %}
+        <label>Username</label>
+        <input type="text" value="{{ user.username }}" disabled class="form-input" style="background: #f3f4f6; margin-bottom: 15px;">
+        
+        <label>Email</label>
+        <input type="email" value="{{ user.email }}" disabled class="form-input" style="background: #f3f4f6; margin-bottom: 15px;">
+
+        <label>First Name</label>
+        <input type="text" name="first_name" value="{{ user.first_name }}" class="form-input" style="margin-bottom: 15px;">
+
+        <label>Last Name</label>
+        <input type="text" name="last_name" value="{{ user.last_name }}" class="form-input" style="margin-bottom: 15px;">
+
+        <label>Change Password (Leave blank to keep current)</label>
+        <input type="password" name="password" placeholder="New Password" class="form-input" style="margin-bottom: 15px;">
+
+        <button type="submit" class="btn-primary" style="margin-top: 15px;">Update Profile</button>
+    </form>
+</div>
+{% endblock %}

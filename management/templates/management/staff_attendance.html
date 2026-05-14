@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-section" style="background: white; padding: 20px; border-radius: 12px;">
+    <h2>Take Staff Attendance</h2>
+    <div id="staff-attendance-app" data-submit-url="{% url 'admin_save_staff_attendance_api' %}" class="content-section" style="background: white; padding: 20px; border-radius: 12px;">
+        <label>Attendance Date</label>
+        <input id="attendance-date" type="date" required class="form-input" style="margin-bottom: 15px; width: 100%;">
+        
+        <h3>Select Staff (Check if Present)</h3>
+        <div id="staff-list" style="margin-top: 15px; max-height: 300px; overflow-y: auto; border: 1px solid var(--border-color); padding: 10px; border-radius: 6px; background: #fafafa;">
+            {% for staff in staffs %}
+            <div style="margin-bottom: 10px;">
+                <label>
+                    <input type="checkbox" class="staff-checkbox" value="{{ staff.id }}" style="margin-right: 10px;">
+                    {{ staff.admin.first_name }} {{ staff.admin.last_name }}
+                </label>
+            </div>
+            {% endfor %}
+        </div>
+        <button id="save-staff-attendance-btn" class="btn-primary" style="margin-top: 15px;">Save Staff Attendance</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block custom_js %}
+    <script src="{% static 'js/management/attendance.js' %}"></script>
+{% endblock %}

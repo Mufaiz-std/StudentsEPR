@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div id="attendance-app" data-submit-url="{% url 'staff_save_attendance_api' %}" class="content-section" style="background: white; padding: 20px; border-radius: 12px;">
+    <h2>Take Attendance</h2>
+    <span style="display:none;">{% csrf_token %}</span>
+
+    <label>Select Subject</label>
+    <select id="subject-select" class="form-input" style="margin-bottom: 15px; width: 100%;">
+        {% for subject in subjects %}
+            <option value="{{ subject.id }}">{{ subject.subject_name }} ({{ subject.course_id.course_name }})</option>
+        {% endfor %}
+    </select>
+
+    <label>Attendance Date</label>
+    <input id="attendance-date" type="date" class="form-input" style="margin-bottom: 15px; width: 100%;">
+
+    <h3>Select Students (Check if Present)</h3>
+    <div id="students-container" style="margin-top: 15px; max-height: 300px; overflow-y: auto; border: 1px solid var(--border-color); padding: 10px; border-radius: 6px; background: #fafafa;">
+        {% for student in students %}
+        <div style="margin-bottom: 10px;">
+            <label>
+                <input type="checkbox" class="student-checkbox" value="{{ student.id }}" style="margin-right: 10px;">
+                {{ student.admin.first_name }} {{ student.admin.last_name }} ({{ student.course_id.course_name }})
+            </label>
+        </div>
+        {% endfor %}
+        {% if not students %}
+            <p style="color: var(--text-muted);">No students available.</p>
+        {% endif %}
+    </div>
+
+    <button id="save-attendance-btn" class="btn-primary" style="margin-top: 15px;">Save Attendance</button>
+</div>
+{% endblock %}
+
+{% block custom_js %}
+    <script src="{% static 'js/staff/attendance.js' %}"></script>
+{% endblock %}

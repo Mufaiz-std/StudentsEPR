@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Admin Dashboard{% endblock %}
+
+
+
+{% block content %}
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon bg-primary"><i class="fas fa-users"></i></div>
+        <div class="stat-info">
+            <h3>{{ staff_count }}</h3>
+            <p>Total Staff</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon bg-success"><i class="fas fa-user-graduate"></i></div>
+        <div class="stat-info">
+            <h3>{{ student_count }}</h3>
+            <p>Total Students</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon bg-warning"><i class="fas fa-book"></i></div>
+        <div class="stat-info">
+            <h3>{{ course_count }}</h3>
+            <p>Total Courses</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon bg-danger"><i class="fas fa-book-open"></i></div>
+        <div class="stat-info">
+            <h3>{{ subject_count }}</h3>
+            <p>Total Subjects</p>
+        </div>
+    </div>
+</div>
+
+<div class="content-section" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; gap: 20px;">
+    <div style="flex: 1;">
+        <h2>Welcome to Admin Dashboard</h2>
+        <p style="margin-top: 10px; color: var(--text-muted);">Manage your institution's operations from here. You can add staff, students, and courses, monitor attendance, and communicate with your institution members.</p>
+    </div>
+    <div style="flex: 1; max-width: 300px; max-height: 200px;">
+        <canvas id="overviewChart"></canvas>
+    </div>
+</div>
+{% endblock %}
+
+{% block custom_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('overviewChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Staff', 'Students', 'Courses', 'Subjects'],
+                datasets: [{
+                    data: [{{ staff_count }}, {{ student_count }}, {{ course_count }}, {{ subject_count }}],
+                    backgroundColor: ['#2563eb', '#10b981', '#d97706', '#dc2626'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right' }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}
