@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Student Dashboard{% endblock %}
+
+
+
+{% block content %}
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon bg-primary"><i class="fas fa-calendar-check"></i></div>
+        <div class="stat-info">
+            <h3>{{ attendance_percent }}%</h3>
+            <p>Overall Attendance</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon bg-success"><i class="fas fa-book"></i></div>
+        <div class="stat-info">
+            <h3>{{ subject_count }}</h3>
+            <p>Total Subjects</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon bg-warning"><i class="fas fa-envelope"></i></div>
+        <div class="stat-info">
+            <h3>{{ leave_count }}</h3>
+            <p>Pending Leaves</p>
+        </div>
+    </div>
+</div>
+
+<div class="content-section" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+    <h2>Welcome to Student Dashboard</h2>
+    <p style="margin-top: 10px; color: var(--text-muted);">View your academic progress, check your attendance records, apply for leaves, and keep in touch with the administration.</p>
+</div>
+{% endblock %}

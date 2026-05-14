@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block page_title %}Manage Student{% endblock %}
+{% block content %}
+<div class="content-section" style="background: white; padding: 20px; border-radius: 12px;">
+    <h2>Add New Student</h2>
+    <form action="{% url 'add_student_save' %}" method="POST" style="margin-top: 15px;">
+        {% csrf_token %}
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <input type="text" name="first_name" placeholder="First Name" required class="form-input">
+            <input type="text" name="last_name" placeholder="Last Name" required class="form-input">
+            <input type="text" name="username" placeholder="Username" required class="form-input">
+            <input type="email" name="email" placeholder="Email" required class="form-input">
+            <input type="password" name="password" placeholder="Password" required class="form-input">
+            <input type="text" name="address" placeholder="Address" required class="form-input">
+            <select name="course_id" required class="form-input">
+                {% for course in courses %}
+                    <option value="{{ course.id }}">{{ course.course_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn-primary" style="margin-top: 15px;">Add Student</button>
+    </form>
+</div>
+
+<div class="content-section" style="background: white; padding: 20px; border-radius: 12px; margin-top: 20px;">
+    <h2>Student List</h2>
+    <table style="width: 100%; text-align: left; margin-top: 15px; border-collapse: collapse;">
+        <tr style="background: var(--bg-color); border-bottom: 2px solid var(--border-color);">
+            <th style="padding: 10px;">Name</th>
+            <th>Username</th>
+            <th>Course</th>
+            <th>Action</th>
+        </tr>
+        {% for student in students %}
+        <tr style="border-bottom: 1px solid var(--border-color);">
+            <td style="padding: 10px;">{{ student.admin.first_name }} {{ student.admin.last_name }}</td>
+            <td>{{ student.admin.username }}</td>
+            <td>{{ student.course_id.course_name }}</td>
+            <td><a href="{% url 'delete_student' student.admin.id %}" style="color: var(--danger); text-decoration: none;"><i class="fas fa-trash"></i> Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

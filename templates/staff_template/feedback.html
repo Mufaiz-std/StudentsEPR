@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content-section" style="background: white; padding: 20px; border-radius: 12px;">
+    <h2>Send Feedback</h2>
+    <form action="{% if request.user.user_type == 2 %}{% url 'staff_feedback_save' %}{% else %}{% url 'student_feedback_save' %}{% endif %}" method="POST" style="margin-top: 15px;">
+        {% csrf_token %}
+        <textarea name="feedback_msg" rows="5" class="form-input" placeholder="Enter your feedback here..." required></textarea>
+        <button type="submit" class="btn-primary" style="margin-top: 15px;">Submit Feedback</button>
+    </form>
+</div>
+
+<div class="content-section" style="background: white; padding: 20px; border-radius: 12px; margin-top: 20px;">
+    <h2>Feedback History</h2>
+    <table style="width: 100%; text-align: left; margin-top: 15px; border-collapse: collapse;">
+        <tr style="background: var(--bg-color); border-bottom: 2px solid var(--border-color);">
+            <th style="padding: 10px;">Feedback Message</th>
+            <th>Reply</th>
+            <th>Date</th>
+        </tr>
+        {% for fb in feedbacks %}
+        <tr style="border-bottom: 1px solid var(--border-color);">
+            <td style="padding: 10px;">{{ fb.feedback }}</td>
+            <td>{% if fb.feedback_reply %}{{ fb.feedback_reply }}{% else %}<span style="color: var(--warning);">Pending</span>{% endif %}</td>
+            <td>{{ fb.created_at|date:"d M Y" }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

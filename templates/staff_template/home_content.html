@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Staff Dashboard{% endblock %}
+
+
+
+{% block content %}
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon bg-primary"><i class="fas fa-user-graduate"></i></div>
+        <div class="stat-info">
+            <h3>{{ student_count }}</h3>
+            <p>Students Under Me</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon bg-success"><i class="fas fa-book-open"></i></div>
+        <div class="stat-info">
+            <h3>{{ subject_count }}</h3>
+            <p>Total Subjects</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon bg-warning"><i class="fas fa-envelope"></i></div>
+        <div class="stat-info">
+            <h3>{{ leave_count }}</h3>
+            <p>Total Leave Taken</p>
+        </div>
+    </div>
+</div>
+
+<div class="content-section" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+    <h2>Welcome to Staff Dashboard</h2>
+    <p style="margin-top: 10px; color: var(--text-muted);">Manage your subjects and students efficiently. Take attendance, apply for leaves, and stay updated with admin notifications.</p>
+</div>
+{% endblock %}

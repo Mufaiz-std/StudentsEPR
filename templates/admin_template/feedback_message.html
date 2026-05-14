@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content-section" style="background: white; padding: 20px; border-radius: 12px; margin-top: 20px;">
+    <h2>Student & Staff Feedback</h2>
+    <table style="width: 100%; text-align: left; margin-top: 15px; border-collapse: collapse;">
+        <tr style="background: var(--bg-color); border-bottom: 2px solid var(--border-color);">
+            <th style="padding: 10px;">User</th>
+            <th>Feedback Message</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+        {% for fb in feedbacks %}
+        <tr style="border-bottom: 1px solid var(--border-color);">
+            <td style="padding: 10px;">{{ fb.user.first_name }} {{ fb.user.last_name }} ({{ fb.user.get_user_type_display }})</td>
+            <td>{{ fb.feedback }}</td>
+            <td>{{ fb.created_at|date:"d M Y" }}</td>
+            <td>
+                {% if not fb.feedback_reply %}
+                    <button class="btn-primary" style="padding: 5px 10px; font-size: 12px;">Reply</button>
+                {% else %}
+                    <span style="color: var(--success);">Replied</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

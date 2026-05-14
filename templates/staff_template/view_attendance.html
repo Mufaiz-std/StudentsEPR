@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content-section" style="background: white; padding: 20px; border-radius: 12px;">
+    <h2>Attendance History</h2>
+    <table style="width: 100%; text-align: left; margin-top: 15px; border-collapse: collapse;">
+        <tr style="background: var(--bg-color); border-bottom: 2px solid var(--border-color);">
+            <th style="padding: 10px;">Subject</th>
+            <th>Date</th>
+        </tr>
+        {% for att in attendances %}
+        <tr style="border-bottom: 1px solid var(--border-color);">
+            <td style="padding: 10px;">{{ att.subject_id.subject_name }}</td>
+            <td>{{ att.attendance_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
